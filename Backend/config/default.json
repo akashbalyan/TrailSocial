@@ -1,5 +1,5 @@
 {
-    "mongoURI":"",
+    "mongoURI":"mongodb+srv://akashbalyan:akybal139600@cluster0.8xml8mw.mongodb.net/?retryWrites=true&w=majority",
     "jwtToken":"mysecrettoken"
 
 }

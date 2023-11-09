@@ -16,7 +16,7 @@ router.get('/me', auth , async (req,res)=>{
         }
         res.json(profile);
     } catch (error) {
-        console.error(error.message);
+        //console.error(error.message);
         res.status(501).json({msg:'Server Errror'});
     }
     //res.send('Profile route')
@@ -57,7 +57,7 @@ router.post('/', auth , async (req,res)=>{
             await profile.save();
             res.json(profile);
         } catch (error) {
-            console.error(error.message);
+            //console.error(error.message);
             res.status(501).send('Server Error');
         }
     } catch (error) {
@@ -75,7 +75,7 @@ router.delete('/',auth,async (req,res)=>{
         await User.findOneAndRemove({_id:req.user.id});
         res.json({msg:'User Account Deleted'});
     } catch (error) {
-        console.error('Error in deleting user account,pofile and posts');
+        //console.error('Error in deleting user account,pofile and posts');
         res.status(501).send('Server Error');
     }
 })

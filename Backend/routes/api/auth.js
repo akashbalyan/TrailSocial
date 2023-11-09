@@ -14,12 +14,11 @@ const router = express.Router();
 router.get('/', auth, async (req,res)=>{
     
     try {
-        console.log(req);
-        console.log("hi");
         const user = await User.findById(req.user.id).select('-password');
+
         res.json(user)
     } catch (error) {
-        console.log(err.message);
+        
         res.status(500).send('Server Error');
     }
     //res.send('Auth route')
@@ -35,8 +34,6 @@ router.post('/',[
     body('email').isEmail().withMessage('Please enter a valid email id'),
     body('password').exists().withMessage('Password is required')
 ],async (req,res)=>{
-
-    console.log(req.body);
 
     const errors = validationResult(req);
     if(!errors.isEmpty()){

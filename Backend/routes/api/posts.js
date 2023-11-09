@@ -31,7 +31,7 @@ router.post('/', auth,[
        res.json(newPost);
         
     } catch (error) {
-        console.error(error.message);
+        //console.error(error.message);
         res.status(500).send({msg:'Server Error'});
     }
 });
@@ -47,7 +47,7 @@ router.get('/', auth , async (req,res)=>{
         return res.json(posts);
         
     } catch (error) {
-        console.error(error.message);
+        //console.error(error.message);
         res.status(500).send({msg:'Server Error'});
     }
 });
@@ -69,7 +69,7 @@ router.get('/:id', auth , async (req,res)=>{
         if(error.kind == 'ObjectId'){
             return res.status(404).json({msg:'No Post found by this id'})
         }
-        console.error(error.message);
+        //console.error(error.message);
         res.status(500).send({msg:'Server Error'});
     }
 });
@@ -97,7 +97,7 @@ router.delete('/:id', auth , async (req,res)=>{
         if(error.kind == 'ObjectId'){
             return res.status(404).json({msg:'No Post found by this id'})
         }
-        console.error(error.message);
+        //console.error(error.message);
         res.status(500).send({msg:'Server Error'});
     }
 });
@@ -112,15 +112,32 @@ router.put('/like/:id', auth , async (req,res)=>{
         const post = await Post.findById(req.params.id);
 
         if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0){
-                return res.status(400).json({msg:'Post already liked'});
+                const removeIndex=post.likes.map(like=>like.user.toString()).indexOf(req.user.id);
+                post.likes.splice(removeIndex,1);
+                //return res.json(post.likes);
+                //return res.status(400).json({msg:'Post already liked'});
+        }else{
+            post.likes.unshift({user:req.user.id});
         }
-        post.likes.unshift({user:req.user.id});
+        
         await post.save();
+        res.json(post.likes);
+        //return res.status(200).json({msg:'Post liked'});
+        ///
 
-        return res.status(200).json({msg:'Post liked'});
+
+        // const post =await Post.findById(req.params.id);
+        // if(post.likes.filter(like=>like.user.toString()===req.user.id).length===0){
+        //     return res.json({msg:'Post Not been liked Yet'});
+        // }
+        // const removeIndex=post.likes.map(like=>like.user.toString()).indexOf(req.user.id);
+        // post.likes.splice(removeIndex,1);
+        // await post.save();
+        // res.json(post.likes);
+        ///
         
     } catch (error) {
-        console.error(error.message);
+        //console.error(error.message);
         res.status(500).send({msg:'Server Error'});
     }
 });
@@ -155,7 +172,7 @@ router.put('/comment/:id', auth,[
         return res.status(200).json(post.comments);
         
     } catch (error) {
-        console.error(error.message);
+        //console.error(error.message);
         res.status(500).send({msg:'Server Error'});
     }
 });
@@ -183,7 +200,7 @@ router.delete('/comment/:id/:comment_id',auth,async (req,res)=>{
 
         res.json(post.comments);
     }catch(err){
-        console.error(err.message);
+        //console.error(err.message);
         res.status(500).send('Server Error');
     }
 });

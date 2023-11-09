@@ -23,7 +23,7 @@ router.post('/', auth,[
     try {
 
         const user  = await User.findById(req.user.id).select('-password');
-        console.log(req.user);
+        //console.log(req.user);
         const newItem = new Item( {
             user:req.user.id,
             name:req.body.name,
@@ -37,7 +37,7 @@ router.post('/', auth,[
        res.json(newItem);
         
     } catch (error) {
-        console.error(error.message);
+        //console.error(error.message);
         res.status(500).send({msg:'Server Error'});
     }
 });
@@ -53,7 +53,7 @@ router.get('/', auth , async (req,res)=>{
         return res.json(items);
         
     } catch (error) {
-        console.error(error.message);
+        //console.error(error.message);
         res.status(500).send({msg:'Server Error'});
     }
 });
@@ -75,7 +75,7 @@ router.get('/:id', auth , async (req,res)=>{
         if(error.kind == 'ObjectId'){
             return res.status(404).json({msg:'No Item found by this id'})
         }
-        console.error(error.message);
+        //console.error(error.message);
         res.status(500).send({msg:'Server Error'});
     }
 });
@@ -103,7 +103,7 @@ router.delete('/:id', auth , async (req,res)=>{
         if(error.kind == 'ObjectId'){
             return res.status(404).json({msg:'No Item found by this id'})
         }
-        console.error(error.message);
+        //console.error(error.message);
         res.status(500).send({msg:'Server Error'});
     }
 });

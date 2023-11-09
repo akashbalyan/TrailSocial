@@ -16,7 +16,7 @@ router.get('/' , async (req,res)=>{
         return res.json(trails);
         
     } catch (error) {
-        console.error(error.message);
+        //console.error(error.message);
         res.status(500).send({msg:'Server Error'});
     }
 });

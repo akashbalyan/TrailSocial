@@ -104,7 +104,7 @@ const PostItem =  ({addLike, deletePost, addComment, deleteComment, auth , post 
         )}
 
         <div className="pl-4 pr-4 pt-2 border-t-2">
-          <img className="max-h-80" src={SignUpImage}></img>
+          <img className="max-h-80" src={`http://localhost:5001/${postImage}`}></img>
         </div>
 
         <div className="break-words pl-4 pr-4 pt-2 pb-2">{text}</div>

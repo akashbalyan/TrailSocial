@@ -76,17 +76,17 @@ export const deletePost = (postId) =>  async dispatch =>{
 
 //Add a post
 
-export const addPost = (formData) =>  async dispatch =>{
+export const addPost = (imageFormData,formData) =>  async dispatch =>{
 
     try{
-
-
+        // console.log("Inside AddPost ");
+        // console.log(formData);
         const config = {
             headers:{
                 'Content-Type':'application/json'
             }
         }
-        const res = await instance.post('/api/posts',formData ,config);
+        const res = await instance.post('/api/posts',imageFormData );
         
         dispatch({
             type: ADD_POST,
@@ -95,7 +95,7 @@ export const addPost = (formData) =>  async dispatch =>{
 
         dispatch(setAlert('Post Added','success'));
     }catch(error){
-            console.log("Error")
+            console.log(error)
         dispatch({
             type:POSTS_ERROR,
             payload:{msg:error.response.statusText , status: error.response.status}

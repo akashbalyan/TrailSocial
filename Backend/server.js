@@ -1,25 +1,32 @@
 const express = require('express')
 const connectDB = require('./config/db');
 const cors = require('cors');
+const multer = require('multer');
 
 const app = express();
 
 
 //Allow requests from the specific origin (e.g., http://localhost:5173)
 
-const allowedOrigins = ['http://localhost:5173'];
+const allowedOrigins = ['http://localhost:5173','http://localhost:5001'];
+
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+// };
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: '*',
 };
 
 app.use(cors(corsOptions))
+
+app.use('/uploads',express.static('uploads'))
 
 // Use middleware to parse request body
 app.use(express.json());

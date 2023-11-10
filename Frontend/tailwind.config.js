@@ -8,7 +8,9 @@ export default {
     extend: {
       colors: {
         'signin': '#eee5e5',
-        'signinhover':'#cac4c4'
+        'signinhover':'#cac4c4',
+        'username':'#9C7089'
+
       },
     },
   },

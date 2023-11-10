@@ -4,9 +4,13 @@ import { getPosts } from "../actions/post";
 import {connect} from 'react-redux';
 import PostItem from "./PostItem";
 import PostForm from "./PostForm";
+import { Navigate } from 'react-router-dom';
 
-function Community ( {getPosts , post:{ posts , loading}}) {
+function Community ( {getPosts , auth, post:{ posts , loading}}) {
 
+    if( !auth.isAuthenticated){
+        return <Navigate to='/signin'/>
+    }
     const [userPosts, setUserPosts] = useState(false);
 
     useEffect(()=>{
@@ -25,8 +29,8 @@ function Community ( {getPosts , post:{ posts , loading}}) {
         <>
         <div className="flex">
             <div className="w-[30%] ">
-                <div className="text-2xl pt-5 pl-5 mb-4">
-                    Welcome to Community
+                <div className="text-2xl pt-5 pl-5 mb-4 break-words">
+                    Welcome <span className="text-username">{auth.isAuthenticated && auth.user && auth.user.name}</span> to Community
                 </div>
                 <PostForm/>
             </div>
@@ -47,10 +51,12 @@ function Community ( {getPosts , post:{ posts , loading}}) {
 
 Community.propTypes = {
     getPosts: PropTypes.func.isRequired , 
-    post:PropTypes.object.isRequired
+    post:PropTypes.object.isRequired,
+    auth:PropTypes.object.isRequired
 }
 const mapStateToProps = state => (
     {
+        auth:state.auth,
         post:state.post
     }
 )

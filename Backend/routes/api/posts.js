@@ -5,13 +5,28 @@ const User = require('../../models/User');
 const Post = require('../../models/Post');
 const router = express.Router();
 
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/') // Define the uploads folder
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname) // Use the original name of the file
+    }
+});
+
+const upload = multer({ storage: storage });
+//const upload = multer({ dest: 'uploads/' });
+
 //@route  POST api/posts
 //@desc    add a post
 //@access Private
-router.post('/', auth,[
+router.post('/', auth,upload.single('file'),[
     body('text').not().isEmpty().withMessage('Post text is required')
-] ,async (req,res)=>{
+]  ,async (req,res)=>{
 
+    
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({errors:errors.array()});
@@ -20,11 +35,16 @@ router.post('/', auth,[
     try {
 
         const user  = await User.findById(req.user.id).select('-password');
+        const filePath = req.file.path;
+        //console.log("***************************inside Post request **************************************")
+        console.log(req.file);
+        
+        //console.log(req.file);
         const newPost = new Post( {
             user:req.user.id,
             name:user.name,
             text:req.body.text,
-            postImage:req.body.postImage,
+            postImage:filePath
         });
 
        await newPost.save();

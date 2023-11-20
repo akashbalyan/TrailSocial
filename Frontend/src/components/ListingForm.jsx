@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 function ListingForm(){
     return(
         <div className="pl-4 pt-4">
-            <h2 className="text-2xl pb-2">Add a Listing</h2>
+            <h2 className="text-2xl font-medium pb-2">Add a Listing</h2>
             <form className="border-2 rounded-xl pt-3 pl-3 pr-3 pb-3">
                 <div className="flex pt-2 pb-2 ">
                     <label className="basis-1/3" htmlFor="">Name</label>

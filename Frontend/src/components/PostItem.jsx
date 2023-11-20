@@ -3,59 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from "react-redux";
 import SignUpImage from '../assets/SignUp.png'
 import { addLike , deletePost ,addComment, deleteComment} from "../actions/post";
+import getDate from "../utils/convertDate";
 
 const PostItem =  ({addLike, deletePost, addComment, deleteComment, auth , post :{ _id, user, name, text ,postImage, likes , comments , date} , userPostsOnly}) => {
 
     const [commentText,setCommentText] = useState('');
-    const getDate  = function(date){
-
-        let arr = date.split('-');
-        let month ='';
-
-        switch (arr[1]) {
-            case '01':
-              month = 'Jan';
-              break;
-            case '02':
-              month = 'Feb';
-              break;
-            case '03':
-              month = 'Mar';
-              break;
-            case '04':
-              month = 'Apr';
-              break;
-            case '05':
-              month = 'May';
-              break;
-            case '06':
-              month = 'Jun';
-              break;
-            case '07':
-              month = 'Jul';
-              break;
-            case '08':
-              month = 'Aug';
-              break;
-            case '09':
-              month = 'Sep';
-              break;
-            case '10':
-              month = 'Oct';
-              break;
-            case '11':
-              month = 'Nov';
-              break;
-            case '12':
-              month = 'Dec';
-              break;
-            default:
-           
-          }
-          
-        let resultDate = arr[2].substr(0,2) + ' ' + month + ',' +arr[0];
-        return resultDate;
-    }
+    
     if(userPostsOnly && !auth.loading && user !== auth.user._id){
         return (
             <></>
@@ -275,4 +228,4 @@ const mapStateToProps = state => ({
     auth:state.auth
 })
 
-export default connect(mapStateToProps , {addLike , deletePost , addComment,  deleteComment})(PostItem);
+export default connect(mapStateToProps , { addLike , deletePost , addComment,  deleteComment})(PostItem);

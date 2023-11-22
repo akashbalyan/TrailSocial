@@ -24,7 +24,6 @@ const upload = multer({ storage: storage });
 //@access Private
 router.post('/', upload.single('file'), auth,[
     body('name').not().isEmpty().withMessage('name text is required'),
-    body('itemImage').not().isEmpty().withMessage('itemImage text is required'),
     body('price').not().isEmpty().withMessage('price text is required'),
     body('location').not().isEmpty().withMessage('location text is required')
 ] ,async (req,res)=>{
@@ -35,10 +34,10 @@ router.post('/', upload.single('file'), auth,[
     }
     
     try {
-
+        console.log(req);
         const user  = await User.findById(req.user.id).select('-password');
         const filePath = req.file.path;
-        //console.log(req.user);
+        
         const newItem = new Item( {
             user:req.user.id,
             name:req.body.name,
@@ -48,12 +47,13 @@ router.post('/', upload.single('file'), auth,[
             description:req.body.description,
             email:user.email
         });
-
+        console.log(user);
+        console.log(newItem)
        await newItem.save();
        res.json(newItem);
         
     } catch (error) {
-        //console.error(error.message);
+        console.error(error);
         res.status(500).send({msg:'Server Error'});
     }
 });

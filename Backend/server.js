@@ -27,6 +27,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 app.use('/uploads',express.static('uploads'))
+app.use('/itemUploads',express.static('itemUploads'))
 
 // Use middleware to parse request body
 app.use(express.json());

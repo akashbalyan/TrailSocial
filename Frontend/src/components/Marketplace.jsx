@@ -67,7 +67,7 @@ function Marketplace ({getItems ,auth , item : { items , loading }}) {
             </div>
           </form>
 
-          <div className='border-t-2 mt-4'>
+          <div className='border-t-2 border-b-2  mt-4 pb-4'>
             <h2 className='text-2xl font-bold pt-5 pl-5 '>Filters</h2>
 
             <div className='flex justify-between mt-2 hover:bg-gray-200 pt-2 pb-2 rounded-2xl'>
@@ -135,15 +135,16 @@ function Marketplace ({getItems ,auth , item : { items , loading }}) {
           <ListingForm/>
         </div>
 
-        <div>
+        <div className='border-l-2 ml-4 pl-4'>
             <div className="pt-3 pb-3 "> 
-                        <button id="btn-allItems" className="border-4 pl-2 pr-2 rounded-lg bg-gray-200" onClick={handleItemsClick}> All Items</button>
-                        <button id="btn-myItems" className="border-4 pl-2 pr-2 rounded-lg ml-3" onClick={handleItemsClick}> My Items</button>
-                    </div>
-                    <div id="posts" className=" max-h-screen overflow-scroll">
-                    {items.map((item)=>(<ListItem key={item._id} item={item} userItemsOnly={userItems}/>))}
-                    </div>
+                <button id="btn-allItems" className="border-4 pl-2 pr-2 rounded-lg bg-gray-200" onClick={handleItemsClick}> All Items</button>
+                <button id="btn-myItems" className="border-4 pl-2 pr-2 rounded-lg ml-3" onClick={handleItemsClick}> My Items</button>
             </div>
+            <div id="posts" className="  grid grid-cols-3 gap-4 max-h-screen overflow-scroll bg-gray-100">
+                {items.map((item)=>(<ListItem key={item._id} item={item} userItemsOnly={userItems}/>))}
+            </div>
+        </div>
+            
       </div>
     );
 }

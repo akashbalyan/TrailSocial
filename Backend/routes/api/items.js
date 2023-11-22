@@ -5,10 +5,24 @@ const User = require('../../models/User');
 const Item = require('../../models/Item');
 const router = express.Router();
 
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'itemUploads/') // Define the uploads folder
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname) // Use the original name of the file
+    }
+});
+
+const upload = multer({ storage: storage });
+
+
 //@route  POST api/items
 //@desc    add a item
 //@access Private
-router.post('/', auth,[
+router.post('/', upload.single('file'), auth,[
     body('name').not().isEmpty().withMessage('name text is required'),
     body('itemImage').not().isEmpty().withMessage('itemImage text is required'),
     body('price').not().isEmpty().withMessage('price text is required'),
@@ -23,13 +37,15 @@ router.post('/', auth,[
     try {
 
         const user  = await User.findById(req.user.id).select('-password');
+        const filePath = req.file.path;
         //console.log(req.user);
         const newItem = new Item( {
             user:req.user.id,
             name:req.body.name,
-            itemImage:req.body.itemImage,
+            itemImage:filePath,
             price:req.body.price,
             location:req.body.location,
+            description:req.body.description,
             email:user.email
         });
 
@@ -58,30 +74,9 @@ router.get('/', auth , async (req,res)=>{
     }
 });
 
-//@route  GET api/items/:id
-//@desc    get items by id
-//@access  Private
-router.get('/:id', auth , async (req,res)=>{
-
-    try {
-        const item = await Item.findById(req.params.id);
-
-        if(!item){
-            return res.json({msg:'No Item found by this id'})
-        }
-        return res.json(item);
-        
-    } catch (error) {
-        if(error.kind == 'ObjectId'){
-            return res.status(404).json({msg:'No Item found by this id'})
-        }
-        //console.error(error.message);
-        res.status(500).send({msg:'Server Error'});
-    }
-});
 
 //@route  DELETE api/items/:id
-//@desc    Delete post by id
+//@desc    Delete item by id
 //@access  Private
 router.delete('/:id', auth , async (req,res)=>{
 

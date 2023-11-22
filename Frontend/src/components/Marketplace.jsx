@@ -1,16 +1,26 @@
 
 import PropTypes from 'prop-types';
-
+import { useState,useEffect } from 'react';
 import {connect} from 'react-redux';
 
 import { Navigate } from 'react-router-dom';
 import ListingForm from './ListingForm';
+import ListItem from './ListItem';
+import { getItems } from '../actions/item';
 
-function Marketplace ({auth}) {
+
+function Marketplace ({getItems ,auth , item : { items , loading }}) {
 
     if( !auth.isAuthenticated){
         return <Navigate to='/signin'/>
     }
+
+    const [userItems, setUserItems] = useState(false);
+
+    useEffect(()=>{
+        getItems();
+        
+    },[getItems])
 
     function selectRadio(radioId) {
         // Get the radio button by its ID
@@ -18,6 +28,13 @@ function Marketplace ({auth}) {
         
         // Set the radio button as checked
         radio.checked = true;
+    }
+
+    const handleItemsClick = () =>{
+        setUserItems(!userItems)
+        document.getElementById("btn-allItems").classList.toggle("bg-gray-200");
+        document.getElementById("btn-myItems").classList.toggle("bg-gray-200");
+        
     }
 
     return (
@@ -117,19 +134,31 @@ function Marketplace ({auth}) {
           
           <ListingForm/>
         </div>
-        <div></div>
+
+        <div>
+            <div className="pt-3 pb-3 "> 
+                        <button id="btn-allItems" className="border-4 pl-2 pr-2 rounded-lg bg-gray-200" onClick={handleItemsClick}> All Items</button>
+                        <button id="btn-myItems" className="border-4 pl-2 pr-2 rounded-lg ml-3" onClick={handleItemsClick}> My Items</button>
+                    </div>
+                    <div id="posts" className=" max-h-screen overflow-scroll">
+                    {items.map((item)=>(<ListItem key={item._id} item={item} userItemsOnly={userItems}/>))}
+                    </div>
+            </div>
       </div>
     );
 }
 
 
 Marketplace.propTypes = {
-    auth:PropTypes.object.isRequired
+    auth:PropTypes.object.isRequired,
+    getItems:PropTypes.func.isRequired,
+    item:PropTypes.object.isRequired
 }
 const mapStateToProps = state => (
     {
-        auth:state.auth
+        auth:state.auth,
+        item:state.item
     }
 )
 
-export default connect( mapStateToProps , { })(Marketplace);
+export default connect( mapStateToProps , {getItems })(Marketplace);

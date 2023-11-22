@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from "react-redux";
 
 import getDate from "../utils/convertDate";
-//import { addLike , deletePost ,addComment, deleteComment} from "../actions/post";
+import {deleteItem} from '../actions/item';
 
-const PostItem =  ({deleteItem, auth , item :{ _id, user, name, description ,itemImage,location,price date} , userItemsOnly}) => {
+const ListItem =  ({deleteItem, auth , item :{ _id, user, name, description , itemImage, location, price , date} , userItemsOnly}) => {
 
     
     if(userItemsOnly && !auth.loading && user !== auth.user._id){
@@ -21,7 +21,7 @@ const PostItem =  ({deleteItem, auth , item :{ _id, user, name, description ,ite
     );
 }
 
-PostItem.propTypes = {
+ListItem.propTypes = {
     auth: PropTypes.object.isRequired,
     item:PropTypes.object.isRequired,
     deleteItem:PropTypes.func.isRequired
@@ -31,4 +31,4 @@ const mapStateToProps = state => ({
     auth:state.auth
 })
 
-export default connect(mapStateToProps , {addLike , deletePost , addComment,  deleteComment})(PostItem);
+export default connect(mapStateToProps , {deleteItem})(ListItem);

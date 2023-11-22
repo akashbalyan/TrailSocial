@@ -25,6 +25,7 @@ function Community ( {getPosts , auth, post:{ posts , loading}}) {
         document.getElementById("btn-myPosts").classList.toggle("bg-gray-200");
         
     }
+    
     return(
         <>
         <div className="flex">

@@ -18,3 +18,4 @@ export const GET_ITEMS = 'GET_ITEMS';
 export const ADD_ITEM = 'ADD_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const ITEMS_ERROR = 'ITEMS_ERROR';
+export const SORT_ITEMS = 'SORT_ITEMS';

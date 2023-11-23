@@ -1,4 +1,4 @@
-import { ADD_ITEM, DELETE_ITEM, GET_ITEMS , ITEMS_ERROR } from "../actions/types";
+import { ADD_ITEM, DELETE_ITEM, GET_ITEMS , ITEMS_ERROR , SORT_ITEMS } from "../actions/types";
 import instance from "../config/axios-config";
 import { setAlert } from "./alert";
 
@@ -60,4 +60,12 @@ export const deleteItem = (itemId) => async dispatch => {
             payload:{msg:error.response.statusText,status:error.response.status}
         })
     }
+}
+
+export const sortItems = (sortType) => async dispatch =>{
+
+    dispatch({
+        type:SORT_ITEMS,
+        payload:sortType
+    })
 }

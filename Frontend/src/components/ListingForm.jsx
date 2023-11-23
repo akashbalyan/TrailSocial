@@ -50,7 +50,7 @@ function ListingForm({addItem , auth:{user}}){
                 </div>
                 <div className="flex pt-2 pb-2">
                     <label  className="basis-1/3" htmlFor="">Price (CAD)</label>
-                    <input type="text" value={price} onChange={e=>setPrice(e.target.value)} className="ml-3 border-2 rounded-l" required/>
+                    <input type="number" value={price} onChange={e=>setPrice(e.target.value)} className="ml-3 border-2 rounded-l" required/>
                 </div>
                 <div className="flex pt-2 pb-2">
                     <input type="file" required  onChange={e=>setItemImage(e.target.files[0])} className="ml-3 "/>

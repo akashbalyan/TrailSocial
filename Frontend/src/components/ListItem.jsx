@@ -5,12 +5,20 @@ import { connect } from "react-redux";
 import getDate from "../utils/convertDate";
 import {deleteItem} from '../actions/item';
 
-const ListItem =  ({deleteItem, auth , item :{ _id, user, name, description , itemImage, location, price,email , date} , userItemsOnly}) => {
+const ListItem =  ({deleteItem, auth , item :{ _id, user, name, description , itemImage, location, price,email , date} , userItemsOnly , searchText ,minPrice ,maxPrice}) => {
 
-    const image = 'uploads/photo-1670188827740-dc2ae63dd21a.avif';
-    const image2 ='uploads/painting-mountain-lake-with-mountain-background_188544-9126.avif';
+    console.log(date);
     if(userItemsOnly && !auth.loading && user !== auth.user._id){
         return (
+            <></>
+        )
+    }
+
+    if((searchText.toString() !== '' && !name.toString().toLowerCase().includes(searchText.toString().toLowerCase()) )
+        || ( Number(maxPrice) !== Number('')  && Number(price)>Number(maxPrice) ) || 
+           ( Number(minPrice) !== Number('') && Number(price)  < Number(minPrice) )  
+    ){
+        return(
             <></>
         )
     }
@@ -28,6 +36,16 @@ const ListItem =  ({deleteItem, auth , item :{ _id, user, name, description , it
           <h3>{name}</h3>
           <div className="flex justify-between">
             <h3>{location}</h3>
+            {userItemsOnly && !auth.loading && user === auth.user._id && (
+                
+                    <button
+                    className=" ml-auto mr-2 bg-red-500 hover:bg-red-700 rounded-xl pl-2 pr-2 text-white"
+                    onClick={() => deleteItem(_id)}
+                    >
+                    Delete
+                    </button>
+               
+            )}
             <svg
               
               xmlns="http://www.w3.org/2000/svg"
@@ -60,6 +78,7 @@ const ListItem =  ({deleteItem, auth , item :{ _id, user, name, description , it
                 d="M19.5 8.25l-7.5 7.5-7.5-7.5"
               />
             </svg>
+            
           </div>
           <div id={"itemInfo-div-"+_id}  className="w-full absolute bg-gray-200 hidden pt-4 pl-4 pb-4 pr-4 rounded-xl">
              { description  &&<div> <h2 className="font-bold">Description:</h2> <p>{description}</p></div>  }
@@ -81,7 +100,9 @@ const ListItem =  ({deleteItem, auth , item :{ _id, user, name, description , it
 ListItem.propTypes = {
     auth: PropTypes.object.isRequired,
     item:PropTypes.object.isRequired,
-    deleteItem:PropTypes.func.isRequired
+    deleteItem:PropTypes.func.isRequired,
+    userItemsOnly:PropTypes.bool.isRequired,
+    searchText:PropTypes.string.isRequired
 }
 
 const mapStateToProps = state => ({

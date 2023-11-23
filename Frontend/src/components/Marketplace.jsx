@@ -6,16 +6,19 @@ import {connect} from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import ListingForm from './ListingForm';
 import ListItem from './ListItem';
-import { getItems } from '../actions/item';
+import { getItems,sortItems } from '../actions/item';
 
 
-function Marketplace ({getItems ,auth , item : { items , loading }}) {
+function Marketplace ({getItems,sortItems ,auth , item : { items , loading }}) {
 
     if( !auth.isAuthenticated){
         return <Navigate to='/signin'/>
     }
 
     const [userItems, setUserItems] = useState(false);
+    const [searchText, setSearchText] = useState('');
+    const [minPrice,setMinPrice] = useState('');
+    const [maxPrice,setMaxPrice] = useState('');
 
     useEffect(()=>{
         getItems();
@@ -23,12 +26,13 @@ function Marketplace ({getItems ,auth , item : { items , loading }}) {
     },[getItems])
 
     function selectRadio(radioId) {
-        // Get the radio button by its ID
-        var radio = document.getElementById(radioId);
         
-        // Set the radio button as checked
+        var radio = document.getElementById(radioId);
         radio.checked = true;
+        sortItems(radioId);
+
     }
+    
 
     const handleItemsClick = () =>{
         setUserItems(!userItems)
@@ -60,8 +64,9 @@ function Marketplace ({getItems ,auth , item : { items , loading }}) {
                     </svg>
                     <input
                     type="text"
+                    value={searchText}
                     placeholder="Search Marketplace"
-                    onChange={() => {}}
+                    onChange={e=>setSearchText(e.target.value)}
                     className='pl-3 bg-transparent w-full outline-none'
                     />
             </div>
@@ -108,7 +113,7 @@ function Marketplace ({getItems ,auth , item : { items , loading }}) {
             
             <div id="sortBy-div" className='hidden'>
                 <div className='flex justify-between pt-1 pb-1 hover:bg-gray-200 rounded-lg' onClick={()=>{selectRadio('radio-suggestion')}} >
-                    <label htmlFor="" className='text-xl pl-5'>Suggested</label>
+                    <label htmlFor="" className='text-xl pl-5'>Suggested - Newest first </label>
                     <input type="radio" id="radio-suggestion" name="SortBy"  className='mr-5 w-4'/>
                 </div>
                 <div className='flex justify-between pt-1 pb-1 hover:bg-gray-200 rounded-lg' onClick={()=>{selectRadio('radio-priceLowestFirst')}} >
@@ -124,9 +129,9 @@ function Marketplace ({getItems ,auth , item : { items , loading }}) {
             <div>
                 <h2 className='text-xl font-medium pl-5 '>Price</h2>
                 <div className='flex pl-5 pt-2'>
-                    <input type="text" className=' bg-gray-100 text-l rounded-lg border-1  outline-gray-300 hover:bg-gray-200 pt-1 pb-1 pl-1 pr-1 w-[110px] mr-2' placeholder='Min'/>
+                    <input type="number" value={minPrice} onChange={(e)=>(setMinPrice(e.target.value))} className=' bg-gray-100 text-l rounded-lg border-1  outline-gray-300 hover:bg-gray-200 pt-1 pb-1 pl-1 pr-1 w-[110px] mr-2' placeholder='Min'/>
                     <h2 className=' text-xl pt-1 pb-1'>to</h2>
-                    <input type="text" className='  bg-gray-100 text-l rounded-lg border-1 outline-gray-300  hover:bg-gray-200 pt-1 pb-1 pl-1 pr-1 w-[110px] ml-2'  placeholder='Max'/>
+                    <input type="number" value={maxPrice} onChange={(e)=>(setMaxPrice(e.target.value))} className='  bg-gray-100 text-l rounded-lg border-1 outline-gray-300  hover:bg-gray-200 pt-1 pb-1 pl-1 pr-1 w-[110px] ml-2'  placeholder='Max'/>
                 </div>
             </div>
            
@@ -140,8 +145,8 @@ function Marketplace ({getItems ,auth , item : { items , loading }}) {
                 <button id="btn-allItems" className="border-4 pl-2 pr-2 rounded-lg bg-gray-200" onClick={handleItemsClick}> All Items</button>
                 <button id="btn-myItems" className="border-4 pl-2 pr-2 rounded-lg ml-3" onClick={handleItemsClick}> My Items</button>
             </div>
-            <div id="posts" className="  grid grid-cols-3 gap-4 max-h-screen overflow-scroll bg-gray-100">
-                {items.map((item)=>(<ListItem key={item._id} item={item} userItemsOnly={userItems}/>))}
+            <div id="posts" className=" min-h-[81vh] max-h-screen min-w-[70vw]  overflow-scroll grid grid-cols-4 gap-2 grid-flow-row overflow-auto bg-gray-100">
+                {items.map((item)=>(<ListItem key={item._id} item={item} userItemsOnly={userItems} searchText={searchText} minPrice={minPrice} maxPrice={maxPrice}/>))}
             </div>
         </div>
             
@@ -153,6 +158,7 @@ function Marketplace ({getItems ,auth , item : { items , loading }}) {
 Marketplace.propTypes = {
     auth:PropTypes.object.isRequired,
     getItems:PropTypes.func.isRequired,
+    sortItems:PropTypes.func.isRequired,
     item:PropTypes.object.isRequired
 }
 const mapStateToProps = state => (
@@ -162,4 +168,4 @@ const mapStateToProps = state => (
     }
 )
 
-export default connect( mapStateToProps , {getItems })(Marketplace);
+export default connect( mapStateToProps , {getItems , sortItems})(Marketplace);

@@ -14,18 +14,18 @@ const TrailSchema = new mongoose.Schema({
  location:{
     type:String
  },
- likes:[
-    {
-        user:{
-            type:mongoose.Schema.ObjectId,
-            ref:'user'
-        }
-    }
- ],
- date:{
-    type:Date,
-    default:Date.now
-} 
+ length:{
+   type:String
+ },
+ time:{
+   type:String
+ },
+ level:{
+   type:String
+ },
+ likes:{
+   type:Number
+ }
 })
 
 module.exports = Trail = mongoose.model('trail',TrailSchema);

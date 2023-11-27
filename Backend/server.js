@@ -28,6 +28,7 @@ app.use(cors(corsOptions))
 
 app.use('/uploads',express.static('uploads'))
 app.use('/itemUploads',express.static('itemUploads'))
+app.use('/trailUploads',express.static('trailUploads'))
 
 // Use middleware to parse request body
 app.use(express.json());
@@ -45,6 +46,6 @@ app.use('/api/auth',require('./routes/api/auth'));
 app.use('/api/posts',require('./routes/api/posts'));
 app.use('/api/profile',require('./routes/api/profile'));
 app.use('/api/items',require('./routes/api/items'));
-//app.use('/api/trails',require('./routes/api/trails'));
+app.use('/api/trails',require('./routes/api/trails'));
 
 app.listen(PORT, ()=> console.log(`Server started on PORT - ${PORT}`));

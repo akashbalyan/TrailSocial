@@ -103,13 +103,16 @@ function Home () {
             
             </div>
 
+            <div className='min-h-[80vh]'>
+                List of trails
+            </div>
             <div className='pl-[30px] pr-[30px] mt-5'>
                 <div className='flex justify-end'>
                     <div>
                         <h2 className='font-bold text-xl mb-4'>Connect with Us</h2>
                         <div className='flex w-[200px] justify-between mr-4'>
-                            <a href="https://www.instagram.com" target='_blank'>
-                                <img src={instagramIcon}  className="h-10 w-10" alt="" />
+                            <a  href="https://www.instagram.com" target='_blank'>
+                                <img src={instagramIcon}  className="h-10 w-10 " alt="" />
                             </a>
                             <a href="https://www.facebook.com" target='_blank'>
                                 <img src={facebookIcon}  className="h-10 w-10" alt="" />
@@ -125,18 +128,18 @@ function Home () {
                 </div>
 
                 <div className='border-2 border-gray-400 mt-5'></div>
-                <div className='mt-5'>
-                    <p className='font-bold'>
-                        2023 TrailSocial, LLC All Rights Reserved <br />
-                        TrailSocial ® and the TrailSocial Mountain Design are registered trademarks of TrailsSocial, LLC in the United States as well as certain other jurisdictions. <br />
-                        FIND YOUR WAY OUTSIDE™ is a trademark of TrailsSocial, LLC. <br />
-                    </p>
-                </div>
-                <div className='font-bold mt-3'>
-                    <a className ='hover:underline' href="">Privacy Policy * </a>
-                    <a className ='hover:underline' href="">Terms * </a>
-                    <a className ='hover:underline' href="">Conditions </a>
-                </div>
+                    <div className='mt-5'>
+                        <p className='font-bold'>
+                            2023 TrailSocial, LLC All Rights Reserved <br />
+                            TrailSocial ® and the TrailSocial Mountain Design are registered trademarks of TrailsSocial, LLC in the United States as well as certain other jurisdictions. <br />
+                            FIND YOUR WAY OUTSIDE™ is a trademark of TrailsSocial, LLC. <br />
+                        </p>
+                    </div>
+                    <div className='font-bold mt-3'>
+                        <a className ='hover:underline' href="">Privacy Policy * </a>
+                        <a className ='hover:underline' href="">Terms * </a>
+                        <a className ='hover:underline' href="">Conditions </a>
+                    </div>
 
                 <div className='border-2 border-gray-400 mt-5 mb-5'></div>
             </div>

@@ -21,8 +21,10 @@ const TrailItem =  ({ trail :{ _id, name, location ,trailImage, length, time, le
           
     }
 
-    if((searchText.toString() !== '' &&
-         !name.toString().toLowerCase().includes(searchText.toString().toLowerCase()) ) 
+    if(( searchText.toString() !== '' &&
+        ( ( !name.toString().toLowerCase().includes(searchText.toString().toLowerCase()) )
+        && ( !location.toString().toLowerCase().includes(searchText.toString().toLowerCase()) )
+        ) ) 
     ){
         return(
             <></>

@@ -19,3 +19,7 @@ export const ADD_ITEM = 'ADD_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const ITEMS_ERROR = 'ITEMS_ERROR';
 export const SORT_ITEMS = 'SORT_ITEMS';
+export const GET_TRAILS = 'GET_TRAILS';
+export const LIKE_TRAIL = 'LIKE_TRAIL';
+export const UNLIKE_TRAIL = 'UNLIKE_TRAIL';
+export const TRAILS_ERROR = 'TRAILS_ERROR';

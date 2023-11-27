@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
 
+import TrailItem from './TrailItem';
 
 import bgImage1 from '../assets/bgImage1.png'
 import bgImage2 from '../assets/bgImage2.png'
@@ -10,16 +13,34 @@ import linkedinIcon from '../assets/linkedinIcon.png'
 import twitterIcon from '../assets/twitterIcon.png'
 import facebookIcon from '../assets/facebookIcon.png'
 
-function Home () {
+import { getTrails } from '../actions/trail';
 
-    const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400},
-    {name: 'Page A', uv: 800, pv: 2400, amt: 2400},
-    {name: 'Page A', uv: 400, pv: 2400, amt: 2400},
-    {name: 'Page A', uv: 400, pv: 2400, amt: 2400},
-    {name: 'Page A', uv: 400, pv: 2400, amt: 2400}                                        
-];
+function Home ({getTrails,trail:{trails ,topFiveTrails, loading}}) {
+
+    var data = [{name: 'Trail/Hike A', uv: 400, pv: 2400, amt: 2400},
+                    {name: 'Trail/Hike A', uv: 800, pv: 2400, amt: 2400},
+                    {name: 'Trail/Hike A', uv: 400, pv: 2400, amt: 2400},
+                    {name: 'Trail/Hike A', uv: 400, pv: 2400, amt: 2400},
+                    {name: 'Trail/Hike A', uv: 400, pv: 2400, amt: 2400}                                        
+                ];
     const [searchText, setSearchText] = useState('');
 
+    const setGraphData =() => {
+        console.log('setGraphData');
+        const maxLikes = topFiveTrails[0].likes;
+        data = topFiveTrails.map(({ likes }) => ({  Likes:likes , pv:maxLikes, amt:maxLikes }));
+        data[0].name ='A'
+        data[1].name ='B'
+        data[2].name ='C'
+        data[3].name ='D'
+        data[4].name ='E'
+    }
+
+    useEffect(()=>{ getTrails() },[getTrails]);
+    // useEffect(()=>{ setGraphData() },[loading]);
+
+
+    {!loading && setGraphData() && console.log('loading is false')}
     return(
         <div className='min-h-81vh overflow-scroll'>
 
@@ -54,48 +75,53 @@ function Home () {
                     </div>
                 </div>
             </div>
-
+      
             <div>
                 <div>
-                    <div className='flex justify-center'>
-                        <h2 className='text-[50px] font-mono font-bold text-green-800'>MOST LIKED TRAILS OF THE YEAR</h2>
+                    <div className='flex justify-center mt-20'>
+                        <h2 className='text-[50px] font-mono font-bold text-green-800'>MOST LIKED TRAILS AND HIKES OF THE YEAR</h2>
                     </div>
                     <div className='flex justify-center mt-5'>
                             <div>
-                                <BarChart width={600} height={300} data={data}>
+                                <BarChart width={700} height={400} data={data}>
                                 <XAxis dataKey="name" stroke="#8884d8" />
                                 <YAxis />
                                 <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
                                 <Legend width={100} wrapperStyle={{ top: 40, right: 20, backgroundColor: '#f5f5f5', border: '1px solid #d5d5d5', borderRadius: 3, lineHeight: '40px' }} />
                                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                                <Bar dataKey="uv" fill="#8884d8" barSize={30} />
+                                <Bar dataKey="Likes" fill="#8884d8" barSize={30} />
                                 </BarChart>
                              </div>
                     </div>
                     <div className='flex justify-between pl-10 pr-10'>
                             <div className='flex '> 
                                 <img src={trailIcon} alt="" className='h-10 w-10' />
-                                <h2 className='text-lg pt-1 pl-1'>Trail A - Name of the Trail
+                                <h2 className='text-lg pt-1 pl-1 flex'>
+                                    <h3 className='font-purple font-bold '>A : </h3> <p>{!loading && topFiveTrails[0].name}</p>
                                 </h2>
                             </div>
                             <div className='flex '> 
                                 <img src={trailIcon} alt="" className='h-10 w-10' />
-                                <h2 className='text-lg pt-1 pl-1'>Trail A - Name of the Trail
+                                <h2 className='text-lg pt-1 pl-1 flex'>
+                                <h3 className='font-purple font-bold'>B : </h3> <p>{!loading && topFiveTrails[1].name}</p>
                                 </h2>
                             </div>
                             <div className='flex '> 
                                 <img src={trailIcon} alt="" className='h-10 w-10' />
-                                <h2 className='text-lg pt-1 pl-1'>Trail A - Name of the Trail
+                                <h2 className='text-lg pt-1 pl-1 flex'>
+                                <h3 className='font-purple font-bold'>C : </h3> <p>{!loading && topFiveTrails[2].name}</p>
                                 </h2>
                             </div>
                             <div className='flex '> 
                                 <img src={trailIcon} alt="" className='h-10 w-10' />
-                                <h2 className='text-lg pt-1 pl-1'>Trail A - Name of the Trail
+                                <h2 className='text-lg pt-1 pl-1 flex'>
+                                <h3 className='font-purple font-bold'>D : </h3> <p>{!loading && topFiveTrails[3].name}</p>
                                 </h2>
                             </div>
                             <div className='flex '> 
                                 <img src={trailIcon} alt="" className='h-10 w-10' />
-                                <h2 className='text-lg pt-1 pl-1'>Trail A - Name of the Trail
+                                <h2 className='text-lg pt-1 pl-1 flex'>
+                                <h3 className='font-purple font-bold'>E : </h3> <p>{!loading && topFiveTrails[4].name}</p>
                                 </h2>
                             </div>
                     </div>
@@ -103,13 +129,15 @@ function Home () {
             
             </div>
 
-            <div className='min-h-[80vh]'>
-                List of trails
+            <div className='min-h-[80vh] max-h-[80vh] pt-16 pl-16 pr-16 pb-16 border-2 border-gray-200 ml-20 mr-20 mt-20 rounded-2xl overflow-scroll' >
+            {!loading && trails.map((trail)=>(<TrailItem key={trail._id} trail={trail}  searchText={searchText} />))}
             </div>
+
+
             <div className='pl-[30px] pr-[30px] mt-5'>
                 <div className='flex justify-end'>
                     <div>
-                        <h2 className='font-bold text-xl mb-4'>Connect with Us</h2>
+                        <h2 className='text-xl mb-4'>Connect with Us</h2>
                         <div className='flex w-[200px] justify-between mr-4'>
                             <a  href="https://www.instagram.com" target='_blank'>
                                 <img src={instagramIcon}  className="h-10 w-10 " alt="" />
@@ -129,13 +157,13 @@ function Home () {
 
                 <div className='border-2 border-gray-400 mt-5'></div>
                     <div className='mt-5'>
-                        <p className='font-bold'>
+                        <p className=''>
                             2023 TrailSocial, LLC All Rights Reserved <br />
                             TrailSocial ® and the TrailSocial Mountain Design are registered trademarks of TrailsSocial, LLC in the United States as well as certain other jurisdictions. <br />
                             FIND YOUR WAY OUTSIDE™ is a trademark of TrailsSocial, LLC. <br />
                         </p>
                     </div>
-                    <div className='font-bold mt-3'>
+                    <div className=' mt-3'>
                         <a className ='hover:underline' href="">Privacy Policy * </a>
                         <a className ='hover:underline' href="">Terms * </a>
                         <a className ='hover:underline' href="">Conditions </a>
@@ -147,4 +175,13 @@ function Home () {
     )
 }
 
-export default Home;
+Home.propTypes = {
+    trail:PropTypes.object.isRequired,
+    getTrails:PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+    trail:state.trail
+})
+
+export default connect(mapStateToProps , {getTrails})(Home);

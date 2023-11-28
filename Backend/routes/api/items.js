@@ -34,7 +34,7 @@ router.post('/', upload.single('file'), auth,[
     }
     
     try {
-        console.log(req);
+        
         const user  = await User.findById(req.user.id).select('-password');
         const filePath = req.file.path;
         
@@ -47,8 +47,7 @@ router.post('/', upload.single('file'), auth,[
             description:req.body.description,
             email:user.email
         });
-        console.log(user);
-        console.log(newItem)
+    
        await newItem.save();
        res.json(newItem);
         

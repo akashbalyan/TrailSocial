@@ -1,6 +1,5 @@
 import { GET_TRAILS, TRAILS_ERROR , LIKE_TRAIL, UNLIKE_TRAIL } from "../actions/types";
 import instance from "../config/axios-config";
-import { setAlert } from "./alert";
 
 
 export const getTrails = () => async dispatch =>{
@@ -8,7 +7,6 @@ export const getTrails = () => async dispatch =>{
     try{
         const res = await instance.get('/api/trails');
 
-        console.log("response is +" +res );
         dispatch({
             type:GET_TRAILS,
             payload:res.data

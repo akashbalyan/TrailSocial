@@ -26,7 +26,7 @@ function Home ({getTrails,trail:{trails ,topFiveTrails, loading}}) {
     const [searchText, setSearchText] = useState('');
 
     const setGraphData =() => {
-        console.log('setGraphData');
+
         const maxLikes = topFiveTrails[0].likes;
         data = topFiveTrails.map(({ likes }) => ({ Likes:likes , pv:maxLikes, amt:maxLikes }));
         data[0].name ='A'
@@ -39,7 +39,7 @@ function Home ({getTrails,trail:{trails ,topFiveTrails, loading}}) {
     useEffect(()=>{ getTrails() },[getTrails]);
 
 
-    {!loading && setGraphData() && console.log('loading is false')}
+    {!loading && setGraphData()}
     return(
         <div className='min-h-81vh overflow-scroll'>
 

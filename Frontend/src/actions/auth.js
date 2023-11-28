@@ -18,7 +18,6 @@ export const loadUser =  () => async dispatch => {
     }
 
     try{
-        console.log(localStorage.token);
         const res = await instance.get('/api/auth');
         dispatch({
             type:USER_LOADED,

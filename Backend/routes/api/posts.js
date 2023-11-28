@@ -36,10 +36,7 @@ router.post('/', auth,upload.single('file'),[
 
         const user  = await User.findById(req.user.id).select('-password');
         const filePath = req.file.path;
-        //console.log("***************************inside Post request **************************************")
-        console.log(req.file);
         
-        //console.log(req.file);
         const newPost = new Post( {
             user:req.user.id,
             name:user.name,
@@ -51,7 +48,6 @@ router.post('/', auth,upload.single('file'),[
        res.json(newPost);
         
     } catch (error) {
-        //console.error(error.message);
         res.status(500).send({msg:'Server Error'});
     }
 });

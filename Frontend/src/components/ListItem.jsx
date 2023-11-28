@@ -7,7 +7,7 @@ import {deleteItem} from '../actions/item';
 
 const ListItem =  ({deleteItem, auth , item :{ _id, user, name, description , itemImage, location, price,email , date} , userItemsOnly , searchText ,minPrice ,maxPrice}) => {
 
-    console.log(date);
+    
     if(userItemsOnly && !auth.loading && user !== auth.user._id){
         return (
             <></>
@@ -24,10 +24,10 @@ const ListItem =  ({deleteItem, auth , item :{ _id, user, name, description , it
     }
 
     return (
-      <div>
-        <div className="pl-4 pr-4 pt-2  h-80 w-50">
+      <div >
+        <div className="pl-4 pr-4 pt-2  h-80 w-50 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-104 duration-300">
           <img
-            className="w-full h-full"
+            className="w-full h-full rounded-2xl  shadow-2xl hover:shadow-2xl"
             src={`http://localhost:5001/${itemImage}`}
           ></img>
         </div>

@@ -79,8 +79,6 @@ export const deletePost = (postId) =>  async dispatch =>{
 export const addPost = (imageFormData,formData) =>  async dispatch =>{
 
     try{
-        // console.log("Inside AddPost ");
-        // console.log(formData);
         const config = {
             headers:{
                 'Content-Type':'application/json'
@@ -95,7 +93,6 @@ export const addPost = (imageFormData,formData) =>  async dispatch =>{
 
         dispatch(setAlert('Post Added','success'));
     }catch(error){
-            console.log(error)
         dispatch({
             type:POSTS_ERROR,
             payload:{msg:error.response.statusText , status: error.response.status}
@@ -126,7 +123,6 @@ export const addComment = (postId, formData) =>  async dispatch =>{
 
         dispatch(setAlert('Comment Added','success'));
     }catch(error){
-            console.log("Error")
         dispatch({
             type:POSTS_ERROR,
             payload:{msg:error.response.statusText , status: error.response.status}
@@ -157,7 +153,6 @@ export const deleteComment = (postId, commentId) =>  async dispatch =>{
 
         dispatch(setAlert('Comment Deleted','success'));
     }catch(error){
-            console.log("Error")
         dispatch({
             type:POSTS_ERROR,
             payload:{msg:error.response.statusText , status: error.response.status}

@@ -8,19 +8,17 @@ function PostForm ({addPost}) {
     const [text, setText] =useState('');
     const [postImage, setPostImage] =useState(null);
 
-    //console.log(image);
     const onSubmit = async (e) =>  {
             e.preventDefault();
             const formDataObject = {
                 'text':text,
                 'file':postImage
             };
+
             const formData = new FormData();
             formData.append('text', text);
             formData.append('file', postImage);
-            console.log("Inside onSubmit");
-            console.log(postImage);
-            //console.log(formData);
+            
             addPost(formData , {text});
             setText('');         
     }
@@ -33,8 +31,6 @@ function PostForm ({addPost}) {
                            className="w-full h-32 pl-2 border-2 rounded-xl"/>
                     <input type="file" onChange={(e)=>{
                         setPostImage(e.target.files[0])
-                        //console.log("hi");
-                        //console.log(e.target.files[0]);
                         }} className="mt-3" /> <br />
                     <input type="submit"  value="Add" className="bg-gray-300 hover:bg-gray-400 rounded-xl pl-3 pr-3 mt-3 text-lg"/> 
                     </form>

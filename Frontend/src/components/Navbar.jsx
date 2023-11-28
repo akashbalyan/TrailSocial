@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { logout } from '../actions/auth';
 
-function Navbar ({logout , isAuthenticated}) {
+function Navbar ({logout , isAuthenticated ,user}) {
     
 
     const guestLinks = (
@@ -18,6 +18,7 @@ function Navbar ({logout , isAuthenticated}) {
 
     const UserLinks = (
         <>
+        <h3>{user && user.name}</h3>
         <li className=" hover:bg-signinhover rounded-xl pr-1.5 pl-1.5 flex">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
@@ -64,10 +65,15 @@ function Navbar ({logout , isAuthenticated}) {
     );
 }
 
+Navbar.propTypes = {
+    logout:PropTypes.func.isRequired,
+    isAuthenticated:PropTypes.object.isRequired,
+    user:PropTypes.object.isRequired,
+}
 
 const mapStateToProps = state =>({
-    logout:PropTypes.func.isRequired,
-    isAuthenticated:state.auth.isAuthenticated
+    isAuthenticated:state.auth.isAuthenticated,
+    user:state.auth.user
   });
 
 

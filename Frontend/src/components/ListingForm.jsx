@@ -21,7 +21,7 @@ function ListingForm({addItem , auth:{user}}){
             formData.append('location', location);
             formData.append('price', price);
             formData.append('file', itemImage);
-            console.log(itemImage);
+            
             addItem(formData);
 
             setName('');  

@@ -27,8 +27,6 @@ import  PropTypes from 'prop-types'
 
         e.preventDefault();
         if(password !== password2){
-            console.log("Passwords does not match");
-            //window.alert("Passwords do not match");
             setAlert("Passwords does not match","danger");
         }else{
             register({name,email,password});

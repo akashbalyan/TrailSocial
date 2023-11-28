@@ -16,7 +16,7 @@ const PostItem =  ({addLike, deletePost, addComment, deleteComment, auth , post 
     }
 
     return (
-      <div className=" max-w-2xl border-2 rounded-lg  mb-10  ">
+      <div className=" max-w-2xl min-w-[650px] border-2 rounded-lg  mb-10  ">
         <div className="flex justify-between h-12">
           <div className="flex mt-auto mb-auto">
             <div>

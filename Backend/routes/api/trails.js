@@ -39,7 +39,6 @@ router.get('/' , async (req,res)=>{
 router.post('/', upload.single('file') ,async (req,res)=>{
     
     try {
-        console.log(req);
         const filePath = req.file.path;
         
         const newTrail = new Trail( {
@@ -57,7 +56,6 @@ router.post('/', upload.single('file') ,async (req,res)=>{
        res.json(newTrail);
         
     } catch (error) {
-        console.log(error);
         res.status(500).send({msg:'Server Error'});
     }
 });

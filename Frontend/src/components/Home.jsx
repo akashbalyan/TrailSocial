@@ -28,7 +28,7 @@ function Home ({getTrails,trail:{trails ,topFiveTrails, loading}}) {
     const setGraphData =() => {
         console.log('setGraphData');
         const maxLikes = topFiveTrails[0].likes;
-        data = topFiveTrails.map(({ likes }) => ({  Likes:likes , pv:maxLikes, amt:maxLikes }));
+        data = topFiveTrails.map(({ likes }) => ({ Likes:likes , pv:maxLikes, amt:maxLikes }));
         data[0].name ='A'
         data[1].name ='B'
         data[2].name ='C'
@@ -37,7 +37,6 @@ function Home ({getTrails,trail:{trails ,topFiveTrails, loading}}) {
     }
 
     useEffect(()=>{ getTrails() },[getTrails]);
-    // useEffect(()=>{ setGraphData() },[loading]);
 
 
     {!loading && setGraphData() && console.log('loading is false')}
@@ -95,32 +94,32 @@ function Home ({getTrails,trail:{trails ,topFiveTrails, loading}}) {
                     </div>
                     <div className='flex justify-between pl-10 pr-10'>
                             <div className='flex '> 
-                                <img src={trailIcon} alt="" className='h-10 w-10' />
-                                <h2 className='text-lg pt-1 pl-1 flex'>
+                                <img src={trailIcon} alt="" className='h-10 w-10 ' />
+                                <h2 className='text-lg pt-1 pl-1 flex underline underline-offset-8'>
                                     <h3 className='font-purple font-bold '>A : </h3> <p>{!loading && topFiveTrails[0].name}</p>
                                 </h2>
                             </div>
                             <div className='flex '> 
                                 <img src={trailIcon} alt="" className='h-10 w-10' />
-                                <h2 className='text-lg pt-1 pl-1 flex'>
+                                <h2 className='text-lg pt-1 pl-1 flex underline underline-offset-8'>
                                 <h3 className='font-purple font-bold'>B : </h3> <p>{!loading && topFiveTrails[1].name}</p>
                                 </h2>
                             </div>
                             <div className='flex '> 
                                 <img src={trailIcon} alt="" className='h-10 w-10' />
-                                <h2 className='text-lg pt-1 pl-1 flex'>
+                                <h2 className='text-lg pt-1 pl-1 flex underline underline-offset-8'>
                                 <h3 className='font-purple font-bold'>C : </h3> <p>{!loading && topFiveTrails[2].name}</p>
                                 </h2>
                             </div>
                             <div className='flex '> 
                                 <img src={trailIcon} alt="" className='h-10 w-10' />
-                                <h2 className='text-lg pt-1 pl-1 flex'>
+                                <h2 className='text-lg pt-1 pl-1 flex underline underline-offset-8'>
                                 <h3 className='font-purple font-bold'>D : </h3> <p>{!loading && topFiveTrails[3].name}</p>
                                 </h2>
                             </div>
                             <div className='flex '> 
                                 <img src={trailIcon} alt="" className='h-10 w-10' />
-                                <h2 className='text-lg pt-1 pl-1 flex'>
+                                <h2 className='text-lg pt-1 pl-1 flex underline underline-offset-8'>
                                 <h3 className='font-purple font-bold'>E : </h3> <p>{!loading && topFiveTrails[4].name}</p>
                                 </h2>
                             </div>
@@ -129,8 +128,8 @@ function Home ({getTrails,trail:{trails ,topFiveTrails, loading}}) {
             
             </div>
 
-            <div className='min-h-[80vh] max-h-[80vh] pt-16 pl-16 pr-16 pb-16 border-2 border-gray-200 ml-20 mr-20 mt-20 rounded-2xl overflow-scroll' >
-            {!loading && trails.map((trail)=>(<TrailItem key={trail._id} trail={trail}  searchText={searchText} />))}
+            <div className='min-h-[80vh] max-h-[80vh] pt-16 pl-16 pr-16 pb-16 border-2 border-gray-200 ml-20 mr-20 mt-20 rounded-2xl overflow-scroll bg-slate-100' >
+            {!loading && trails.map((trail)=>(<TrailItem key={trail._id} trail={trail}  searchText={searchText} liked={false} />))}
             </div>
 
 

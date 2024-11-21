@@ -14,6 +14,7 @@ import SignIn from './components/SignIn'
 import setAuthToken from './utils/setAuthToken'
 import { useEffect } from 'react'
 import { loadUser } from './actions/auth'
+import Maintenance from './components/Maintenance';
 
 if(localStorage.token){
   setAuthToken(localStorage.token);
@@ -27,21 +28,22 @@ function App() {
 
   },[])
   return (
-    <Provider store={store}>
-    <Router>
-      <Navbar/>
-      <Alert/>
-       <Routes>
+    <Maintenance/>
+    // <Provider store={store}>
+    // <Router>
+    //   <Navbar/>
+    //   <Alert/>
+    //    <Routes>
         
-        <Route path="/" element={<Home/>} />
-        <Route path="/community" element={<Community/>} />
-        <Route path="/marketplace" element={<Marketplace/>} />
-        <Route path="/signup" element={<SignUp/>} />
-        <Route path="/signin" element={<SignIn/>} />
+    //     <Route path="/" element={<Home/>} />
+    //     <Route path="/community" element={<Community/>} />
+    //     <Route path="/marketplace" element={<Marketplace/>} />
+    //     <Route path="/signup" element={<SignUp/>} />
+    //     <Route path="/signin" element={<SignIn/>} />
 
-      </Routes>
-    </Router>
-    </Provider>
+    //   </Routes>
+    // </Router>
+    // </Provider>
   )
 }
 

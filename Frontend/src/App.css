@@ -56,3 +56,52 @@
     border: #ccc solid 1px;
   }
   
+  /*Maintainence Component CSS*/
+  .maintenance {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .maintenance-content {
+    max-width: 600px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .maintenance h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .maintenance p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top: 5px solid #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
